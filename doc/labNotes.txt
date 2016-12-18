@@ -1,0 +1,17 @@
+
+
+Using the AM2302 sensor.  So we get the AdaFruit DHT lib
+
+The suggest updating your Pi then getting the build essential and 
+python-dev packages
+
+
+
+pi@raspberrypi:~/scratch $ git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+Cloning into 'Adafruit_Python_DHT'...
+remote: Counting objects: 226, done.
+remote: Total 226 (delta 0), reused 0 (delta 0), pack-reused 226
+Receiving objects: 100% (226/226), 71.83 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (128/128), done.
+Checking connectivity... done
+
