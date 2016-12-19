@@ -15,3 +15,7 @@ Receiving objects: 100% (226/226), 71.83 KiB | 0 bytes/s, done.
 Resolving deltas: 100% (128/128), done.
 Checking connectivity... done
 
+
+gpiozero
+
+sudo apt-get install python3-gpiozero python-gpiozero
