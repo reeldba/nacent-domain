@@ -33,3 +33,9 @@ It arrived in no time.
 I'm using these libraries, plus what I write
 
 * Adaafruit DHT Libraries
+
+## Acknowledgements
+
+* Tom Bennet - I read his blog post about an automated Terrarium - and was blown away.   His post was the inspiration for me complete this project.  [bennet.org/blog/raspberry-pi-terrarium-controller/].  Tom is in the UK so some of the items can't be used here in the states but I was able to find other builders who were doing something very similar.
+* Tim Leland - this is one of the best written explanation of how to set up and get RF controlled outlets working.
+* Sam Kenear - Another author talking about controlling RF outlets.  Good write up here, too.
