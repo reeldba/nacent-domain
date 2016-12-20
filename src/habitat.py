@@ -11,12 +11,16 @@
 # Exit Status:
 # -----------------------------------------------------------------------------
 
+import sys
+import os
+import fcntl
 import gpiozero
 import RPi.GPIO as GPIO
 import datetime
 import Adafruit_DHT
 import logging
 import time
+import json
 
 # NOTE - REPLACE THIS WITH A CONFIG JSON 
 SENSOR=Adafruit_DHT.AM2302
@@ -28,7 +32,19 @@ UPPER_CONTROL_LIMIT=29.44
 LOWER_ALERT_LIMIT=19.00
 UPPER_ALERT_LIMIT=31.00
 
+# -----------------------------------------------------------------------------
+# Read the Config File
+# -----------------------------------------------------------------------------
+try:
+	with open("habitat.json",'r') as json_data_file:
+		config=json.load(json_data_file)
+except IOError:
+	print("Cannot find habitat.json or read data from it.")
+	exit(1)
 
+# -----------------------------------------------------------------------------
+# Instance Lock - don't allow more than one instance of this code to run
+# -----------------------------------------------------------------------------
 # PUT A LOCK IN PLACE - DON'T LET A SECOND INSTANCE FIRE UP IF WE ARE 
 # STILL WAITING ON THIS INSTANCE TO FINISH
 #
@@ -36,7 +52,9 @@ UPPER_ALERT_LIMIT=31.00
 #
 
 # -----------------------------------------------------------------------------
-# Set Logging up First
+# Set Logging up First.   This will be a simple data logger using the 
+# rotating log file handler.  As it is set up, no more than 5 x 256K bytes 
+# worth of data will be kept
 # -----------------------------------------------------------------------------
 from logging.handlers import RotatingFileHandler
 datalogger = logging.getLogger()
@@ -48,7 +66,8 @@ datalogger.addHandler(datahandler)
 
 
 # -----------------------------------------------------------------------------
-# Heater Control 
+# Heater Control.   This is a stub for the code that will transmit RF signals
+# to the remote heater unit 
 # -----------------------------------------------------------------------------
 def HeaterControl(toggle):
 	if toggle == 1 :
@@ -60,6 +79,10 @@ def HeaterControl(toggle):
 # record_observations -- store the observations somewhere for safe keeping.
 # -----------------------------------------------------------------------------
 def record_observation(field1,field2,field3):
+	import requests
+
+
+	r = requests.post(config['cfg']['thingspeak_update_url'],data={'api_key':config['cfg']['thingspeak_write_key'],'field1':field1,'field2':field2}) 
 
 	# record this to a local file and then to thingspeak
 	print('{0} Temp={1:0.1f}*C Humidity={2:0.1f}% {3}'\
